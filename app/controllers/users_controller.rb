@@ -5,6 +5,10 @@ class UsersController < ApplicationController
     render({ :template => "users/index.html" })
   end
 
+  def new_registration
+    render({ :template => "users/registration.html" })
+  end
+
   def show
     the_username = params.fetch("the_username")
     @user = User.where({ :username => the_username }).at(0)
@@ -26,11 +30,10 @@ class UsersController < ApplicationController
     the_id = params.fetch("the_user_id")
     user = User.where({ :id => the_id }).at(0)
 
-
     user.username = params.fetch("input_username")
 
     user.save
-    
+
     redirect_to("/users/#{user.username}")
   end
 
@@ -42,5 +45,4 @@ class UsersController < ApplicationController
 
     redirect_to("/users")
   end
-
 end
