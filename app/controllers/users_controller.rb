@@ -49,11 +49,12 @@ class UsersController < ApplicationController
     user = User.where({ :username => input_username }).first
     # conditions
     if user == nil #check if user exists
-      redirect_to("/user_sign_in", {:alert => "no username found"})
+      redirect_to("/user_sign_in", { :alert => "no username found" })
     elsif user.authenticate(input_password) #check if password matches
-      redirect_to("/", {:notice => "Welcome #{user.username}"})
+      session.store(:user_id, user.id)
+      redirect_to("/", { :notice => "Welcome #{user.username}" })
     else
-      redirect_to("/user_sign_in", {:alert => "Incorrect password"})
+      redirect_to("/user_sign_in", { :alert => "Incorrect password" })
     end
   end
 
