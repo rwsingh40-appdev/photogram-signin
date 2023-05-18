@@ -27,16 +27,34 @@ class UsersController < ApplicationController
     if save_status == true
       session.store(:user_id, user.id)
 
-      redirect_to("/users/#{user.username}", {:notice => "Welcome, #{user.username}"})
+      redirect_to("/users/#{user.username}", { :notice => "Welcome, #{user.username}" })
     else
-      
-      redirect_to("/registration", {:alert => user.errors.full_messages.to_sentence})
+      redirect_to("/registration", { :alert => user.errors.full_messages.to_sentence })
     end
-    
   end
+
   def clear_cookies
     reset_session
-    redirect_to("/", {:notice => "See you later!"})
+    redirect_to("/", { :notice => "See you later!" })
+  end
+
+  def sign_in
+    render({ :template => "users/sign_in.html" })
+  end
+
+  def authenticate
+    # store form data and lookup user
+    input_username = params.fetch("input_username")
+    input_password = params.fetch("input_password")
+    user = User.where({ :username => input_username }).first
+    # conditions
+    if user == nil #check if user exists
+      redirect_to("/user_sign_in", {:alert => "no username found"})
+    elsif user.authenticate(input_password) #check if password matches
+      redirect_to("/", {:notice => "Welcome #{user.username}"})
+    else
+      redirect_to("/user_sign_in", {:alert => "Incorrect password"})
+    end
   end
 
   def update

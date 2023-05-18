@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get("/insert_user_record", {:controller => "users", :action => "create" })
   get("/registration", {:controller => "users", :action => "new_registration" })
   get("/user_sign_out", {:controller => "users", :action => "clear_cookies" })
+  get("/user_sign_in", {:controller => "users", :action => "sign_in" })
+  post("/verify_credentials", {:controller => "users", :action => "authenticate"})
 
   # READ
   get("/users", {:controller => "users", :action => "index"})
