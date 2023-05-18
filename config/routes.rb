@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # CREATE
   get("/insert_user_record", {:controller => "users", :action => "create" })
   get("/registration", {:controller => "users", :action => "new_registration" })
+  get("/user_sign_out", {:controller => "users", :action => "clear_cookies" })
 
   # READ
   get("/users", {:controller => "users", :action => "index"})

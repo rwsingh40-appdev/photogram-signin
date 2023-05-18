@@ -16,11 +16,15 @@
 
   <body>
     <ul>
+    <li><%=session.fetch(:user_id)%></li>
       <li>
         <a href="/">Log In</a>
       </li>
       <li>
         <a href="/registration">Sign Up</a>
+      </li>
+      <li>
+        <a href="/user_sign_out">Log Out</a>
       </li>
     </ul>
     <ul>
@@ -31,6 +35,13 @@
         <a href="/photos">Photos</a>
       </li>
     </ul>
+    <%if notice.present?%>
+      <div style="border: thin green solid; color: green"><%=notice%></div>
+    <%end%>
+    <%if alert.present?%>
+      <div style ="border: thin red solid; color: red"><%=alert%></div>
+    <%end%>
+
     <%= yield %>
   </body>
 </html>
